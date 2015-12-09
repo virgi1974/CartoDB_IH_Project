@@ -5,7 +5,7 @@ require 'csv'
 
 agent = Mechanize.new
 
-url = 'http://localhost:3000/'
+url = 'http://localhost:3000/missing.html'
 page = agent.get(url)
 links = page.links_with(:href => /^http\:\/\/www.doenetwork.org\/cases\/\w+.\w+/)
 
@@ -79,6 +79,7 @@ end
 # ---------  START ----------
 # we read the links
 links.each do |link|
+  binding.pry
   page =link.click
 
   puts page.code + "  link_" + (i+1).to_s
