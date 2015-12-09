@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
-  # before_action :authenticate_user!
+  before_action :authenticate_user!
+
 
   def welcome
     render 'welcome'
@@ -8,5 +9,14 @@ class UsersController < ApplicationController
   def missing
     render 'missing'
   end
+
+  def show
+    @user = User.find_by(id: params[:id])
+    @maps = Map.all.where(user_id: currentuser.id)
+
+  end
+
+
+
 
 end

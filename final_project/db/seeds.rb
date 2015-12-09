@@ -1,7 +1,10 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
-#
-# Examples:
-#
-#   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
-#   Mayor.create(name: 'Emanuel', city: cities.first)
+(1..10).each do |index|
+  m = Map.create(table: "map #{index}",
+    user_id: "#{index +1}",
+    description: "description #{index}",
+    city: "city #{index}",
+    state: "state #{index}",
+    date1: Date.new,
+    date2: Date.new,
+    shared: true)
+end
