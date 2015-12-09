@@ -1,4 +1,100 @@
+
+
+//-----------------------------------------------
+
 $(document).ready(function() {
+
+ $(document).on('click','#show-map',function(event){
+  $('.map-container').empty();
+  $('.map-container').append('<div style="width:500px;height:500px;border:solid;" id="map-prueba"></div>');
+  
+    var table_name = $('#map_table').val();
+    var city = $('#map_city').val().trim();
+    var state = $('#map_state').val().trim();
+    var date1 = $('#map_date1').val();
+    var date2 = $('#map_date2').val();
+
+    // var id = $(event.currentTarget.children).attr("id");
+    prepareQuery(table_name,city,state,date1,date2);
+  });
+
+ function prepareQuery(table_name,city,state,date1,date2){
+    var query = " WHERE"
+    var adding;
+    
+  // if (city) {
+  //   query+= ' city = ' + "'"+ city +"'"; 
+  // };
+
+  // if (state && city) {
+  //   query+= ' state = ' + "'" + state +"'"; 
+  // }else if(state){
+  //   query+= ' and state = ' + "'" + state +"'"; 
+  // };
+
+
+  if (date1 && date2) {
+    query+= ' date between ' +"'"+ date1 +"'"+ " and " +"'"+ date2+"'";
+  }else if (date1) {
+    query+= ' date = ' +"'"+ date1 +"'"; 
+  }else if (date2) {
+    query+= ' date = ' +"'"+ date2 +"'";  
+  };
+    
+
+  
+  get_cartodb(table_name,query)
+  }
+
+  function get_cartodb(table_name,query){
+
+    // "pruebaufo"
+    var cartodb_user = "vitrgilio1974";
+      // Put layer data into a JS object
+      var layerSource = {
+        user_name: cartodb_user, // "vitrgilio1974"
+        type: 'cartodb',
+        sublayers: [{ 
+          sql: "SELECT * FROM " + table_name + query + "", // All recorded earthquakes past 30 days
+          cartocss: $("#simple").text() // Simple visualization
+        }]
+      }
+
+      // For storing the sublayer
+      var sublayer;
+
+      // Instantiate new map object, place it in 'map' element
+      var map_object = new L.Map('map-prueba', {
+        center: [37.7741154,-122.4437914], // San Francisco
+        zoom: 4
+      });
+
+      L.tileLayer('http://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+      }).addTo(map_object);
+
+      // Add data layer to your map
+      cartodb.createLayer(map_object,layerSource)
+        .addTo(map_object)
+        .done(function(layer) {
+          sublayer = layer.getSubLayer(0);
+        })
+        .error(function(err) {
+          console.log("error: " + err);
+        });
+  };
+
+  
+  // evento carga preview de datos
+  // $(document).on('click','#show-map',function(event){
+    // alert("yeahhh");
+    // event.preventDefault();
+    // var currentDOMElement = $(event.currentTarget);
+    // var id = $(event.currentTarget.children).attr("id");
+    // prueba_cartodb();
+  // });
+
+
   //VIZZJSON
     var vizjson = 'https://vitrgilio1974.cartodb.com/api/v2/viz/1924302c-9b66-11e5-9fd1-0ecd1babdde5/viz.json';
     var options = {
@@ -15,7 +111,6 @@ $(document).ready(function() {
         // report error
         console.log("An error occurred: " + err);
       });
-
 
 //CREATELAYER - PASSING A VIZJSON
 

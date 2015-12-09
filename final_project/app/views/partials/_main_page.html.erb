@@ -7,14 +7,18 @@
 <section>
   <p><strong>Name:</strong>  <%= current_user.name %> <strong>Email:</strong> <%= current_user.email %></p>
   <%= link_to 'Logout', destroy_user_session_path, method: 'DELETE',class: "btn btn-warning" %> 
+  <br>
+  <%= link_to 'Login', user_session_path, class: "btn btn-primary" %> 
+
+
+  <%= link_to 'new', new_user_map_path(current_user), class: "btn btn-primary" %> 
+
+
   <% else %>
   <p>PLEASE LOGIN / SIGNUP TO CONTINUE</p>
 </section>
   <% end %>
   </header>
 </div>
-
-
-
 
 

@@ -1,5 +1,11 @@
-<% if currentuser %>
-  <% @maps.each do |map| %>
-  <%= puts map.description %>
-  <% end %>
+<% unless @maps.nil? %>
+  <section class="container">
+    <div class="row">
+        <% @maps.each do |map| %>
+        <div>
+          <%=  map.description %>
+        </div> 
+        <% end %>
+    </div>
+  </section>
 <% end %>
