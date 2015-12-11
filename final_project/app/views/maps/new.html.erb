@@ -1,18 +1,4 @@
-<style type="cartocss/text" id="simple">
-  /** simple visualization */
-
-  #pruebaufo{
-    marker-fill-opacity: 0.9;
-    marker-line-color: #FFF;
-    marker-line-width: 1.5;
-    marker-line-opacity: 1;
-    marker-placement: point;
-    marker-type: ellipse;
-    marker-width: 10;
-    marker-fill: #FF6600;
-    marker-allow-overlap: true;
-  }
-  </style>
+<%= render './partials/map_styles' %>
 <p> <%= flash_message %> </p>  
 
 <% if @map.errors.any? %>
@@ -25,107 +11,89 @@
 
 <div class="container-fluid">
 <header class="row">
-  <section class="col-sm-12 text-center">
-    <h2>Creating a map</h2>
+  <section class="col-sm-6 text-center">
+    <legend>Creating a map</legend>
   <%= form_for [@user, @map] do |f| %>
-    <div>
 
+    <div class="form-group">
+      <%= f.label :cartodb_username %>
+      <%= f.text_field :cartodb_username,class: "form-control" %>
       <%= f.label :table %>
-      <%= f.text_field :table %>
-
+      <%= f.text_field :table,class: "form-control" %>
       <%= f.label :city %>
-      <%= f.text_field :city %>
+      <%= f.text_field :city,class: "form-control" %>
     
       <%= f.label :state %>
-      <%= f.text_field :state %>
+      <%= f.text_field :state,class: "form-control" %>
 
-      <%= f.label :description %>
-      <%= f.text_area :description %>
+      <legend>Add a description</legend>
+        <%= f.label :description %>
+        <%= f.text_area :description,class: "form-control" %>
 
-      <%= f.label :date1 %>
-      <%= f.date_field :date1 %>
+      <legend>Search by date</legend>
+        <%= f.label :date1 %>
+        <%= f.date_field :date1 %>
 
-      <%= f.label :date2 %>
-      <%= f.date_field :date2 %>  
-
-      <%= f.submit 'CREATE MAP',class: 'btn btn-primary' %>
-      <hr>
-    </div>
+        <%= f.label :date2 %>
+        <%= f.date_field :date2 %>  
+      </div>
+      
+      <%= f.submit 'CREATE MAP',class: 'btn btn-primary btn-block' %>
+   
   <% end %>
-  <input type="button" class="btn btn-success" id="show-map" value="PREVIEW">
+  </section>
 
+     <section class="col-sm-6 text-center">
+      <legend>Choose a style</legend>
+      <div class="row">
+        <div class="btn-group">
+          <button id="mapcolor-1" class="btn btn-default mp"></button>
+          <button id="mapcolor-2" class="btn btn-default mp"></button>
+          <button id="mapcolor-3" class="btn btn-default mp"></button>
+          <button id="mapcolor-4" class="btn btn-default mp"></button>
+          <button id="mapcolor-5" class="btn btn-default mp"></button>
+          <button id="mapcolor-6" class="btn btn-default mp"></button>
+        </div>
+      </div>
+      <div class="row">
+        <div class="btn-group">
+          <button id="mapcolor-7" class="btn btn-default mp"></button>
+          <button id="mapcolor-8" class="btn btn-default mp"></button>
+          <button id="mapcolor-9" class="btn btn-default mp"></button>
+          <button id="mapcolor-10" class="btn btn-default mp"></button>
+          <button id="mapcolor-11" class="btn btn-default mp"></button>
+          <button id="mapcolor-12" class="btn btn-default mp"></button>
+        </div>
+      </div>
+      <div class="row">
+        <div class="btn-group">
+          <button id="mapcolor-13" class="btn btn-default mp"></button>
+          <button id="mapcolor-14" class="btn btn-default mp"></button>
+          <button id="mapcolor-15" class="btn btn-default mp"></button>
+          <button id="mapcolor-16" class="btn btn-default mp"></button>
+          <button id="mapcolor-17" class="btn btn-default mp"></button>
+          <button id="mapcolor-18" class="btn btn-default mp"></button>
+        </div>
+      </div>
     </section>
   </header>
 </div>
+<br>
 
-<div class="container-fluid">
-<header class="row">
-  <section class="col-sm-12 map-container">
-    <h2>CHOOSING LAYERS THROUGH SQL QUERIES</h2>
-    <!-- <div style="width:500px;height:500px;border:solid;" id="map-prueba"></div> -->
-    </section>
-  </header>
+<div class="container">
+  <div class="row">
+    <div class="col-md-6 text-center">
+      <input type="button" class="btn btn-success btn-block" id="show-map" value="PREVIEW">
+    </div>
+  </div>
 </div>
 
-<script>
-// $(document).ready(function() {
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 map-container">
+    </div>
+  </div>
+</div>
 
-//   $(document).on('click','#show-map',function(event){
-//     alert("yeahhh");
-//     event.preventDefault();
-//     var currentDOMElement = $(event.currentTarget);
-//     // var id = $(event.currentTarget.children).attr("id");
-//     getData();
-//   });
-
-//   function get_cartodb(tableName){
-//     var query = "WHERE **************";
-//     // "pruebaufo"
-//     var cartodb_user = "vitrgilio1974";
-//       // Put layer data into a JS object
-//       var layerSource = {
-//         user_name: cartodb_user, // "vitrgilio1974"
-//         type: 'cartodb',
-//         sublayers: [{ 
-//           sql: "SELECT * FROM " + tableName, // All recorded earthquakes past 30 days
-//           cartocss: $("#simple").text() // Simple visualization
-//         }]
-//       }
-
-//       // For storing the sublayer
-//       var sublayer;
-
-//       // Instantiate new map object, place it in 'map' element
-//       var map_object = new L.Map('map4', {
-//         center: [37.7741154,-122.4437914], // San Francisco
-//         zoom: 4
-//       });
-
-//       L.tileLayer('http://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}.png', {
-//         attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-//       }).addTo(map_object);
-
-//       // Add data layer to your map
-//       cartodb.createLayer(map_object,layerSource)
-//         .addTo(map_object)
-//         .done(function(layer) {
-//           sublayer = layer.getSubLayer(0);
-//         })
-//         .error(function(err) {
-//           console.log("error: " + err);
-//         });
-//   };
-
-//   function getData(){
-//     var table_name = $('#map_table').val();
-//     console.log('sending' + table_name);
-//     get_cartodb(table_name);
-//   }
-
-// }); //fin doument.ready
-
-
-
-</script>
 
   

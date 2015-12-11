@@ -2,6 +2,10 @@ Rails.application.routes.draw do
 
   devise_for :users
   get '/' => 'users#welcome'
+
+  get '/users/:user_id/mymaps' => 'maps#show_my_maps'
+
+  get '/maps/:map_id' => 'maps#show_selected_map'
  
   get '/missing' => 'users#missing'
 

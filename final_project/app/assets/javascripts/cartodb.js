@@ -1,326 +1,284 @@
+var Map = function(){
+  this.cartodb_user = "";
+  this.table_name = "";
+  this.city = "";
+  this.state = "";
+  this.state = "";
+  this.date1 = "";
+  this.date2 = "";
+  this.query = " WHERE";
+}
+
+Map.prototype.getCartoDbUser = function(){
+  var user = $('#map_cartodb_user').val();
+  if (user !== undefined) {
+    this.cartodb_user = $('#map_cartodb_user').val().trim();
+  };
+}
+Map.prototype.getValues = function(){
+  this.table_name = $('#map_table').val();
+  this.city = $('#map_city').val().trim();
+  this.state = $('#map_state').val().trim();
+  this.date1 = $('#map_date1').val();
+  this.date2 = $('#map_date2').val();
+}
+Map.prototype.getCity = function(){
+  if (this.city.length !== 0) {
+    this.query+= ' city = ' + "'"+ this.city +"'"; 
+  };
+}
+
+Map.prototype.getState = function(){
+  if (this.city.length !== 0 && this.state.length !== 0) {
+    this.query+= ' and state = ' + "'" + this.state +"'"; 
+  }else if(this.city.length === 0 && this.state.length !== 0){
+    this.query+= ' state = ' + "'" + this.state +"'"; 
+  }else{
+    this.query+= "";
+  };
+}
+
+Map.prototype.getDates = function(){
+
+  if (this.date1.length !== 0 && this.date2.length !== 0) {
+    this.betweenDates();
+  }else if (this.date1.length !== 0 && this.date2.length === 0) {
+    this.onlyDate1();
+  }else if (this.date2.length !== 0  && this.date1.length === 0)  {
+    this.onlyDate2();
+  }else{
+    this.query+= "";
+  };
+}
+
+Map.prototype.getDatesFromDb = function(){
+
+  if (this.date1 !== null && this.date2 !== null) {
+    this.betweenDates();
+  }else if (this.date1 !== null && this.date2 === null) {
+    this.onlyDate1();
+  }else if (this.date2 !== null && this.date1 === null )  {
+    this.onlyDate2();
+  }else{
+    this.query+= "";
+  };
+}
+
+Map.prototype.onlyDate1 = function(){
+  if (this.city.length === 0 || this.sate.length === 0) {
+    this.query+= ' date = ' +"'"+ this.date1 +"'"; 
+  }else if (this.city.length !== 0 || this.sate.length !== 0) {
+    this.query+= ' and date = ' +"'"+ this.date1 +"'"; 
+  }else{
+    this.query+= "";
+  };
+}
+
+Map.prototype.onlyDate2 = function(){
+  if (this.city.length === 0 || this.sate.length === 0) {
+    this.query+= ' date = ' +"'"+ this.date2 +"'"; 
+  }else if (this.city.length !== 0 || this.sate.length !== 0) {
+    this.query+= ' and date = ' +"'"+ this.date2 +"'"; 
+  }else{
+    this.query+= "";
+  };
+}
+
+Map.prototype.betweenDates = function(){
+  if (this.city.length > 0 || this.state.length > 0){
+    this.query+= ' and date between ' +"'"+ this.date1 +"'"+ " and " +"'"+ this.date2+"'";
+  }else{
+    this.query+= ' date between ' +"'"+ this.date1 +"'"+ " and " +"'"+ this.date2+"'";
+  }
+}
+
+Map.prototype.getCartodb = function(id_container){
+  if (this.query === " WHERE"){
+    this.query = "";
+  };
+
+    // Put layer data into a JS object
+  var layerSource = {
+    user_name: this.cartodb_user || "vitrgilio1974", // 
+    type: 'cartodb',
+    sublayers: [{ 
+      sql: "SELECT * FROM " + this.table_name + this.query + "", // All recorded earthquakes past 30 days
+      cartocss: $("#style_1").text() // Simple visualization
+    }]
+  }
+  console.log('---------   ' + layerSource.sublayers[0].sql);
+  // console.log('---------   ' + layerSource.sublayers[0].cartocss);
+  // For storing the sublayer
+  var sublayer;
+
+  // Instantiate new map object, place it in 'map' element
+  var map_object = new L.Map(id_container, {
+    center: [37.7741154,-122.4437914], // San Francisco
+    zoom: 4
+  });
+
+  L.tileLayer('http://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png', {
+    attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+  }).addTo(map_object);
+
+    // Add data layer to your map
+    cartodb.createLayer(map_object,layerSource)
+      .addTo(map_object)
+      .done(function(layer) {
+        // console.log(layer);
+        sublayer = layer.getSubLayer(0);
+      })
+      .error(function(err) {
+        console.log("error: " + err);
+      });
+};
+
+Map.prototype.getCartodb2 = function(id_container){
+  if (this.query === " WHERE"){
+    this.query = "";
+  };
+
+  var layerSource = {
+    user_name: "vitrgilio1974", // 
+    type: 'cartodb',
+    sublayers: [{ 
+      sql: "SELECT * FROM " + this.table_name + this.query + "", // All recorded earthquakes past 30 days
+      // sql: "SELECT * FROM " + this.table_name + this.query + "", 
+      cartocss: $("#style_1").text()     
+    }]
+  }
+  // check the info to be sent
+  console.log('---- myMaps sql is----->   ' + layerSource.sublayers[0].sql);
+  console.log('---- myMaps css is----->   ' + layerSource.sublayers[0].cartocss);
+
+  var sublayer;
+
+  var map_object = new L.Map(id_container, {
+    center: [37.7741154,-122.4437914], 
+    zoom: 5
+  });
+
+  L.tileLayer('http://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png', {
+    attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+  }).addTo(map_object);
+
+  cartodb.createLayer(map_object,layerSource)
+    .addTo(map_object)
+    .done(function(layer) {
+      console.log(layer);
+      sublayer = layer.getSubLayer(0);
+    })
+    .error(function(err) {
+      console.log("error: " + err);
+    });
+};
 
 
 //-----------------------------------------------
 
 $(document).ready(function() {
 
- $(document).on('click','#show-map',function(event){
-  $('.map-container').empty();
-  $('.map-container').append('<div style="width:500px;height:500px;border:solid;" id="map-prueba"></div>');
-  
-    var table_name = $('#map_table').val();
-    var city = $('#map_city').val().trim();
-    var state = $('#map_state').val().trim();
-    var date1 = $('#map_date1').val();
-    var date2 = $('#map_date2').val();
+  //------------------ preview before creating new map -------------
+  $(document).on('click','#show-map',function(event){
+    $('.map-container').empty();
+    $('.map-container').append('<div style="width:100%;height:500px;border:solid;" id="map-prueba"></div>');
+    
+    var my_new_map = new Map();
+    my_new_map.getValues();
+    my_new_map.getCity();
+    my_new_map.getState(); 
+    my_new_map.getDates(); 
+    my_new_map.getCartoDbUser(); 
+    my_new_map.getCartodb('map-prueba');
 
-    // var id = $(event.currentTarget.children).attr("id");
-    prepareQuery(table_name,city,state,date1,date2);
+  });
+  //------------------ show the stored maps ---------------------
+  $('.show-stored-maps').on('click',function(event){
+
+    function myMaps(maps){
+      for (var i = 0; i < maps.length; i++) {
+       
+        var htmlParts = [
+            '<article class="col-md-4 each-map">',
+              '<div id="container-thumbnails_' + i + '"' + 'class="small-maps"></div>',
+              '<div>',
+                '<h3>description</h3>',
+                '<p>' + maps[i].description + '</p>',
+                '<a id ="' + maps[i].id + '" href="#" class="btn btn-success btn-block map-detail">select</a>',
+              '</div>',
+            '</article>'   
+        ];
+        $('.maps-gallery').append(htmlParts.join('\n'));
+
+        var my_stored_map = new Map();
+        my_stored_map.table_name = maps[i].table;
+        my_stored_map.city = maps[i].city;
+        my_stored_map.state = maps[i].state;
+        my_stored_map.date1 = maps[i].date1;
+        my_stored_map.date2 = maps[i].date2;
+
+        my_stored_map.getCartoDbUser();
+        my_stored_map.getCity();
+        my_stored_map.getState(); 
+        my_stored_map.getDatesFromDb(); 
+          
+        my_stored_map.getCartodb('container-thumbnails_' + i);
+      }
+    };//myMaps
+
+    $('.maps-gallery').empty();
+    $userContainer = $('.show-stored-maps');
+    var userId = $userContainer.attr('id');
+    var request = $.get('/users/' + userId + '/mymaps');
+
+    request.fail(function () {
+      alert('Couldn’t get you maps from the DB')
+    });
+
+    request.done(function (response) {
+      myMaps(response);
+    });
+
+
   });
 
- function prepareQuery(table_name,city,state,date1,date2){
-    var query = " WHERE"
-    var adding;
-    
-  // if (city) {
-  //   query+= ' city = ' + "'"+ city +"'"; 
-  // };
+//---------------------- show the selected map below -----------------
 
-  // if (state && city) {
-  //   query+= ' state = ' + "'" + state +"'"; 
-  // }else if(state){
-  //   query+= ' and state = ' + "'" + state +"'"; 
-  // };
+// $('.map-detail').on('click',function(event){
 
+//     $('#map-detail').empty();
 
-  if (date1 && date2) {
-    query+= ' date between ' +"'"+ date1 +"'"+ " and " +"'"+ date2+"'";
-  }else if (date1) {
-    query+= ' date = ' +"'"+ date1 +"'"; 
-  }else if (date2) {
-    query+= ' date = ' +"'"+ date2 +"'";  
-  };
-    
+//     var currentDOMElement = $(event.currentTarget);
+//     var mapId = $(event.currentTarget).attr("id");
+//     // var id = $(event.currentTarget).attr("id")
 
-  
-  get_cartodb(table_name,query)
-  }
+//     var request = $.get('/maps/' + mapId);
 
-  function get_cartodb(table_name,query){
+//     request.fail(function () {
+//       alert('Couldn’t get you maps from the DB')
+//     });
 
-    // "pruebaufo"
-    var cartodb_user = "vitrgilio1974";
-      // Put layer data into a JS object
-      var layerSource = {
-        user_name: cartodb_user, // "vitrgilio1974"
-        type: 'cartodb',
-        sublayers: [{ 
-          sql: "SELECT * FROM " + table_name + query + "", // All recorded earthquakes past 30 days
-          cartocss: $("#simple").text() // Simple visualization
-        }]
-      }
+//     request.done(function (response) {
+//       selectedMap(response);
+//     })
 
-      // For storing the sublayer
-      var sublayer;
-
-      // Instantiate new map object, place it in 'map' element
-      var map_object = new L.Map('map-prueba', {
-        center: [37.7741154,-122.4437914], // San Francisco
-        zoom: 4
-      });
-
-      L.tileLayer('http://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png', {
-        attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-      }).addTo(map_object);
-
-      // Add data layer to your map
-      cartodb.createLayer(map_object,layerSource)
-        .addTo(map_object)
-        .done(function(layer) {
-          sublayer = layer.getSubLayer(0);
-        })
-        .error(function(err) {
-          console.log("error: " + err);
-        });
-  };
-
-  
-  // evento carga preview de datos
-  // $(document).on('click','#show-map',function(event){
-    // alert("yeahhh");
-    // event.preventDefault();
-    // var currentDOMElement = $(event.currentTarget);
-    // var id = $(event.currentTarget.children).attr("id");
-    // prueba_cartodb();
-  // });
+//     function selectedMap(map){
+//         var my_stored_map = new Map();
+//         my_stored_map.table_name = map.table;
+//         my_stored_map.city = map.city;
+//         my_stored_map.state = map.state;
+//         my_stored_map.date1 = map.date1;
+//         my_stored_map.date2 = map.date2;
+//         my_stored_map.getCartoDbUser();
+//         my_stored_map.getCity();
+//         my_stored_map.getState(); 
+//         my_stored_map.getDatesFromDb(); 
+          
+//         my_stored_map.getCartodb('#map-detail');
+      
+//     };//myMaps
 
 
-  //VIZZJSON
-    var vizjson = 'https://vitrgilio1974.cartodb.com/api/v2/viz/1924302c-9b66-11e5-9fd1-0ecd1babdde5/viz.json';
-    var options = {
-      center: [40.4000, -3.6833], // Madrid
-      zoom: 2,
-      scrollwheel: true
-    };
-    cartodb.createVis('map', vizjson, options)
-      .done(function(vis, layers) { // layers is an array of layers
-        // do stuff
-        // alert("Layers has " + layers.length + " layers.");
-      })
-      .error(function(err) {
-        // report error
-        console.log("An error occurred: " + err);
-      });
+//   });
 
-//CREATELAYER - PASSING A VIZJSON
-
-  var options2 = {
-    center: [41.8369, -87.6847], // Chicago
-    zoom: 7
-  }
-
-  // Instantiate map on specified DOM element
-  var map_object = new L.Map('map2', options2);
-
-  // Add a basemap to the map object just created
-  L.tileLayer('http://tile.stamen.com/toner/{z}/{x}/{y}.png', {
-    attribution: 'Stamen'
-  }).addTo(map_object);
-
-  var vizjson2 = 'https://vitrgilio1974.cartodb.com/api/v2/viz/1924302c-9b66-11e5-9fd1-0ecd1babdde5/viz.json';
-  
-  cartodb.createLayer(map_object, vizjson2).addTo(map_object)
-
-
-//CREATELAYER - PASSING THE LAYERS( SQL + CSS)
-
-
-  var options3 = {
-    center: [41.8369, -87.6847], // Chicago
-    zoom: 3
-  }
-
-  //now we pass the layers to our map-object through a SQL query which brings us back
-  // the datasets-layers we need
-  //we use the name of the "DATA-SETS"
-  var layerSource = {
-    user_name: 'vitrgilio1974',
-    type: 'cartodb',
-    sublayers: [{
-      sql: "SELECT * FROM ufo_2 WHERE city = 'Boise'",
-      cartocss: '#ufo_2 {marker-fill: #A53ED5;marker-type: ellipse;}'
-    }, 
-    {
-      sql: "SELECT * FROM pruebaufo",
-      cartocss: '#pruebaufo {marker-fill: #F84F40;marker-type: ellipse;}'
-    }]
-  };
-
-   // Instantiate map on specified DOM element
-  var map_object3 = new L.Map('map3', options3);
-
-  // Add a basemap to the map object just created
-  L.tileLayer('http://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png',{
-    attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, &copy; <a href="http://cartodb.com/attributions">CartoDB</a>'
-  }).addTo(map_object3);
-
-
-  var sublayers = [];
-
-  cartodb.createLayer(map_object3, layerSource)
-    .addTo(map_object3)
-    .done(function(layer) {
-      for (var i = 0; i < layer.getSubLayerCount(); i++) {
-        sublayers[i] = layer.getSubLayer(i);
-        // alert("Congrats, you added sublayer #" + i + "!");
-      } 
-    })
-    .error(function(err) {
-      // report error
-      console.log("An error occurred: " + err);
-    });
-
-// ------------------  2 buttons controlling the show-hide effect of layers
-$(".sublayer").on('click', show_hide_layers);
-
-  function show_hide_layers(event){
-    var currentDOMElement = $(event.currentTarget);
-    
-    var $target_layer = currentDOMElement.data('layer');
-
-    if (currentDOMElement.hasClass('active')) {
-      currentDOMElement.removeClass('active');
-      console.log('hiding sublayer ' + $target_layer);
-      sublayers[$target_layer].hide();
-    } else {
-      currentDOMElement.addClass('active');
-      console.log('showing sublayer ' + $target_layer);
-      sublayers[$target_layer].show();
-    }
-  }
- 
-  // ------------------  changing CSS for an existing layer
-  $("#change-css").on('click', new_css);    
-  function new_css(){
-    alert('inside');
-    var simpleStyle1 = $("#simple").text();
-    var simpleStyle2 = $("#simple2").text();
-    sublayers[1].setCartoCSS(simpleStyle1); 
-    sublayers[0].setCartoCSS(simpleStyle2); 
-  }
-
-// CREATELAYER - PASSING THE LAYERS( SQL + CSS) CUSTOMIZED
-(function createMap(){
-
-  var tableName = "pruebaufo";
-
-    // Put layer data into a JS object
-    var layerSource = {
-      user_name: 'vitrgilio1974', 
-      type: 'cartodb',
-      sublayers: [{ 
-        sql: "SELECT * FROM " + tableName, // All recorded earthquakes past 30 days
-        cartocss: $("#simple").text() // Simple visualization
-      }]
-    }
-
-    // For storing the sublayer
-    var sublayer;
-
-    // Instantiate new map object, place it in 'map' element
-    var map_object = new L.Map('map4', {
-      center: [37.7741154,-122.4437914], // San Francisco
-      zoom: 4
-    });
-
-    L.tileLayer('http://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}.png', {
-      attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-    }).addTo(map_object);
-
-    // Add data layer to your map
-    cartodb.createLayer(map_object,layerSource)
-      .addTo(map_object)
-      .done(function(layer) {
-        sublayer = layer.getSubLayer(0);
-      })
-      .error(function(err) {
-        console.log("error: " + err);
-      });
-})();
-
-// ---------------------    CHOOSING SQL TROUGH CLICKS
-
-(function createMap_sql(){
-
-  var tableName = "pruebaufo";
-
-    // Put layer data into a JS object
-    var layerSource = {
-      user_name: 'vitrgilio1974', 
-      type: 'cartodb',
-      sublayers: [{ 
-        sql: "SELECT * FROM " + tableName, // All recorded earthquakes past 30 days
-        cartocss: $("#simple").text() // Simple visualization
-      }]
-    }
-
-    // For storing the sublayer
-    var sublayer;
-
-    // Instantiate new map object, place it in 'map' element
-    var map_object = new L.Map('map5', {
-      center: [37.7741154,-122.4437914], // San Francisco
-      zoom: 4
-    });
-
-    L.tileLayer('http://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}.png', {
-      attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-    }).addTo(map_object);
-
-    function createSelector(layer) {
-      var condition = ""; // SQL or CartoCSS string
-      var $options = $(".layer_selector").find("li");
-      $options.click(function(e) {
-        var $li = $(e.target);
-        var selected = $li.attr('data');
-        var type = $li.data('type'); // 'sql' or 'cartocss'
-
-        if (type === "cartocss") { // if a CartoCSS selector is chosen, set the style
-          $options.removeClass('cartocss_selected');
-          if (selected !== "simple") {
-            $li.addClass('cartocss_selected');
-          }
-
-          condition = $('#'+selected).text();
-          layer.setCartoCSS(condition);
-        } else { // if a SQL selector is chosen, re-query the data
-          $options.removeClass('sql_selected');
-          if (selected !== "") {
-            $li.addClass('sql_selected');
-          }
-          var a = "SELECT * FROM " + tableName + selected;
-          layer.setSQL("SELECT * FROM " + tableName + selected);
-        }
-      });
-    }
-
-    // Add data layer to your map
-    cartodb.createLayer(map_object,layerSource)
-      .addTo(map_object)
-      .done(function(layer) {
-        sublayer = layer.getSubLayer(0);
-        createSelector(sublayer);
-      })
-      .error(function(err) {
-        console.log("error: " + err);
-      });
-
-
-
-})();
-
-
-}); //end of window-load
-
-
-
+}); //doc-ready

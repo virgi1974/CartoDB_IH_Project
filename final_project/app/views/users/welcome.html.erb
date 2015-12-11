@@ -22,75 +22,8 @@
   color: white;
 }
   </style>
-  <style type="cartocss/text" id="simple">
-  /** simple visualization */
-
-  #pruebaufo{
-    marker-fill-opacity: 0.9;
-    marker-line-color: #FFF;
-    marker-line-width: 1.5;
-    marker-line-opacity: 1;
-    marker-placement: point;
-    marker-type: ellipse;
-    marker-width: 10;
-    marker-fill: #FF6600;
-    marker-allow-overlap: true;
-  }
-  </style>
-   <style type="cartocss/text" id="simple2">
-  /** simple visualization */
-
-  #pruebaufo{
-    marker-fill-opacity: 0.9;
-    marker-line-color: #FFF;
-    marker-line-width: 1.5;
-    marker-line-opacity: 1;
-    marker-placement: point;
-    marker-type: ellipse;
-    marker-width: 10;
-    marker-fill: #99d8c9;
-    marker-allow-overlap: true;
-  }
-  </style>
 
 <iframe width="100%" height="520" frameborder="0" src="https://vitrgilio1974.cartodb.com/viz/966ddcbe-9d86-11e5-ab1e-0e3ff518bd15/embed_map" allowfullscreen webkitallowfullscreen mozallowfullscreen oallowfullscreen msallowfullscreen></iframe>
-
-<h2>VIZJSON</h2>
-<div style="width:50%;height:500px;" id="map"></div>
-<br><br>
-<h2>CREATELAYER - PASSING A VIZJSON</h2>
-<div style="width:50%;height:500px;" id="map2"></div>
-<br><br>
-<h2>CREATELAYER -CHOOSING LAYERS THROUGH SQL QUERIES</h2>
-<div style="width:70%;height:500px;" id="map3"></div>
-<hr>
-<p>Layer controls</p>
-<div id="buttons">
-  <button class="sublayer" data-layer="0" style="background-color:green;"><span>Toggle ufo1</span></button>
-  <button class="sublayer" data-layer="1" style="background-color:green;"><span>Toggle ufo2</span></button>
-</div>
-<hr>
-<button id="change-css" style="background-color:green;"><span>CHANGE STYLES OF LAYERS</span></button>
-<br><br>
-<h2>CHOOSING LAYERS THROUGH SQL QUERIES</h2>
-<div style="width:70%;height:500px;" id="map4"></div>
-<br><br>
-<hr>
-<div id="sql" class="layer_selector">
-  <p>SQL Selectors</p>
-  <ul>
-    <li data=" WHERE date < '2013-12-06T11:01:22Z'" data-type="sql" class="li-btn"> <2013 </li>
-    <li data=" WHERE date < '2012-12-06T11:01:22Z'" data-type="sql" class="li-btn"> <2012 </li>
-    <li data=" WHERE city ILIKE '%Loleta%'" data-type="sql" class="li-btn">Loleta</li>
-    <li data=" WHERE city = 'Loleta'" data-type="sql" class="li-btn">Loleta</li>
-
-    <li data=" WHERE date ILIKE '2015%'" data-type="sql" class="li-btn"> in 2015 </li>
-    <li data="" data-type="sql" class="li-btn">Reset SQL</li>
-  </ul>
-</div>
-<br><br>
-<h2>SQL SELECTORS</h2>
-<div style="width:70%;height:500px;" id="map5"></div>
 
 </body>
 </html>
