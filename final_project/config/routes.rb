@@ -6,12 +6,14 @@ Rails.application.routes.draw do
   get '/users/:user_id/mymaps' => 'maps#show_my_maps'
 
   get '/maps/:map_id' => 'maps#show_selected_map'
+
  
   get '/missing' => 'users#missing'
 
   resources :users, only: [:index, :show] do 
     resources :maps, only: [:index, :new, :create, :edit, :update, :destroy, :show]
   end
+    resources :comments, only: [:index, :new, :create, :edit, :update, :destroy, :show]
 
 #  new_user_session GET    /users/sign_in(.:format)                devise/sessions#new
 #             user_session POST   /users/sign_in(.:format)                devise/sessions#create

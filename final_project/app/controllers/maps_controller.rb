@@ -14,12 +14,10 @@ class MapsController < ApplicationController
     @user = User.find_by(id: params[:user_id])
     @maps = @user.maps
     render json: @maps
-    # redirect_to action: 'index', controller: 'maps', user_id: @user.id
   end
   
 
   def show_selected_map
-    binding.pry
     @map = Map.find_by(id: params[:map_id])
     render json: @map
   end

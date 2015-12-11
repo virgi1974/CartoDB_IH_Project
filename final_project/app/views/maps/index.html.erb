@@ -1,3 +1,6 @@
+<%= javascript_include_tag 'usermaps/usermaps.js' %>
+
+
 <%= link_to 'New Map', new_user_map_path(current_user), class: "btn btn-primary" %> 
 <button id="<%=@user.id%>" class="btn btn-info show-stored-maps">My Maps</button>
 <% if current_user %>
