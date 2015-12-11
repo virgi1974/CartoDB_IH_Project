@@ -244,41 +244,44 @@ $(document).ready(function() {
 
 //---------------------- show the selected map below -----------------
 
-// $('.map-detail').on('click',function(event){
+$(document).on('click','.map-detail',function(event){
 
-//     $('#map-detail').empty();
+    $('#selected-map').empty();
 
-//     var currentDOMElement = $(event.currentTarget);
-//     var mapId = $(event.currentTarget).attr("id");
-//     // var id = $(event.currentTarget).attr("id")
+    var currentDOMElement = $(event.currentTarget);
+    var mapId = $(event.currentTarget).attr("id");
+    // var id = $(event.currentTarget).attr("id")
 
-//     var request = $.get('/maps/' + mapId);
+    var request = $.get('/maps/' + mapId);
 
-//     request.fail(function () {
-//       alert('Couldn’t get you maps from the DB')
-//     });
+    request.fail(function () {
+      alert('Couldn’t get you maps from the DB')
+    });
 
-//     request.done(function (response) {
-//       selectedMap(response);
-//     })
+    request.done(function (response) {
+      selectedMap(response);
+    })
 
-//     function selectedMap(map){
-//         var my_stored_map = new Map();
-//         my_stored_map.table_name = map.table;
-//         my_stored_map.city = map.city;
-//         my_stored_map.state = map.state;
-//         my_stored_map.date1 = map.date1;
-//         my_stored_map.date2 = map.date2;
-//         my_stored_map.getCartoDbUser();
-//         my_stored_map.getCity();
-//         my_stored_map.getState(); 
-//         my_stored_map.getDatesFromDb(); 
+    function selectedMap(map){
+        var my_stored_map = new Map();
+        //*********************
+        my_stored_map.table_name = map.table;
+        my_stored_map.city = map.city;
+        my_stored_map.state = map.state;
+        my_stored_map.date1 = map.date1;
+        my_stored_map.date2 = map.date2;
+        my_stored_map.getCartoDbUser();
+        my_stored_map.getCity();
+        my_stored_map.getState(); 
+        my_stored_map.getDatesFromDb(); 
           
-//         my_stored_map.getCartodb('#map-detail');
+        my_stored_map.getCartodb('selected-map');
+
+        
       
-//     };//myMaps
+    };//myMaps
 
 
-//   });
+  });
 
 }); //doc-ready
