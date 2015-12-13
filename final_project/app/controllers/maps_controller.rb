@@ -22,6 +22,10 @@ class MapsController < ApplicationController
     render json: @map
   end
 
+  def show_shared_maps
+    render 'shared'
+  end
+
 
   def new
     @user = User.find_by(id: params[:user_id])

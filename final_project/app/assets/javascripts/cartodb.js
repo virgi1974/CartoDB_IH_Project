@@ -145,6 +145,8 @@ function setDataFromDb(map,my_stored_map){
   my_stored_map.getDatesFromDb(); 
   }
 
+  
+
 
 
 

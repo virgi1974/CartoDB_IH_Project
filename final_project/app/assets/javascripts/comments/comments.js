@@ -1,14 +1,16 @@
-$(document).ready(function() {
+window.onload = function() {
 
   //---------------------- show the comments -----------------
 
-    var request = $.get('/comments/');
+    var request = $.get('/shared/comments');
 
     request.fail(function () {
+      alert('inside fail-comments.js');
       alert('Couldn’t get you maps from the DB')
     });
 
     request.done(function (response) {
+      alert('inside done-comments.js');
       mapCollection(response);
     });
 
@@ -23,7 +25,7 @@ $(document).ready(function() {
                 '<h3>description</h3>',
                 '<p>' + maps[i].description + '</p>',
                 '<h3>comments</h3>',
-                '<p>' + maps[i].content + '</p>',
+                // '<p>' + maps[i].content + '</p>',
                 '<a id ="' + maps[i].id + '" href="#" class="btn btn-success btn-block map-detail">select</a>',
               '</div>',
             '</article>'   
@@ -45,10 +47,7 @@ $(document).ready(function() {
           my_stored_map.getCartodb('container-thumbnails_' + i);
         }
 
-        var my_stored_map = new Map();
-        //*********************
-
     };//mapCollection
 
 
-});
+};
