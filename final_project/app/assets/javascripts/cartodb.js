@@ -117,8 +117,7 @@ Map.prototype.getCartodb = function(id_container){
     zoom: 4
   });
 
-  L.tileLayer('http://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png', {
-    attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+  L.tileLayer('http://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png'
   }).addTo(map_object);
 
     // Add data layer to your map

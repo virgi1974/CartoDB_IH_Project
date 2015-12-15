@@ -1,4 +1,5 @@
-<%= render './partials/map_styles' %>
+<%= javascript_include_tag 'usermaps/usermaps.js' %>
+
 <p> <%= flash_message %> </p>  
 
 <% if @map.errors.any? %>
@@ -43,44 +44,11 @@
   <% end %>
   </section>
 
-     <section class="col-sm-6 text-center">
-      <legend>Choose a style</legend>
-      <div class="row">
-        <div class="btn-group">
-          <button id="mapcolor-1" class="btn btn-default mp"></button>
-          <button id="mapcolor-2" class="btn btn-default mp"></button>
-          <button id="mapcolor-3" class="btn btn-default mp"></button>
-          <button id="mapcolor-4" class="btn btn-default mp"></button>
-          <button id="mapcolor-5" class="btn btn-default mp"></button>
-          <button id="mapcolor-6" class="btn btn-default mp"></button>
-        </div>
-      </div>
-      <div class="row">
-        <div class="btn-group">
-          <button id="mapcolor-7" class="btn btn-default mp"></button>
-          <button id="mapcolor-8" class="btn btn-default mp"></button>
-          <button id="mapcolor-9" class="btn btn-default mp"></button>
-          <button id="mapcolor-10" class="btn btn-default mp"></button>
-          <button id="mapcolor-11" class="btn btn-default mp"></button>
-          <button id="mapcolor-12" class="btn btn-default mp"></button>
-        </div>
-      </div>
-      <div class="row">
-        <div class="btn-group">
-          <button id="mapcolor-13" class="btn btn-default mp"></button>
-          <button id="mapcolor-14" class="btn btn-default mp"></button>
-          <button id="mapcolor-15" class="btn btn-default mp"></button>
-          <button id="mapcolor-16" class="btn btn-default mp"></button>
-          <button id="mapcolor-17" class="btn btn-default mp"></button>
-          <button id="mapcolor-18" class="btn btn-default mp"></button>
-        </div>
-      </div>
-    </section>
   </header>
 </div>
 <br>
 
-<div class="container">
+<div class="container" id="up">
   <div class="row">
     <div class="col-md-6 text-center">
       <input type="button" class="btn btn-success btn-block" id="show-map" value="PREVIEW">

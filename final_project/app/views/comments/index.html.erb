@@ -2,17 +2,6 @@
 <%= javascript_include_tag 'comments/comments.js' %>
 <%= javascript_include_tag 'usermaps/usermaps.js' %>
 
-
-<div class="container">
-  <div class="row maps-collection">
-
-
-    
-  </div>
-</div>
-
-
-
 <%= link_to 'New Map', new_user_map_path(current_user), class: "btn btn-primary" %> 
 <button id="<%=@user.id%>" class="btn btn-info show-stored-maps">My Maps</button>
 <% if current_user %>
@@ -25,6 +14,15 @@
   </div>
 <% end %>
 <hr>
+
+<div class="container">
+  <div class="row maps-collection">
+    
+  </div>
+</div>
+
+
+
 
 
 <% if @maps %>

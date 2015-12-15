@@ -10,7 +10,6 @@ class ApplicationController < ActionController::Base
 
 
   def after_sign_in_path_for(resource)
-    # binding.pry
     # current_user_path
     user_maps_path(resource.id)
   end

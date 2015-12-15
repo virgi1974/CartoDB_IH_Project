@@ -1,0 +1,29 @@
+<%= javascript_include_tag 'comments/comments.js' %>
+<p id="<%= params[:map_id] %>" style="display:none;" hidden></p>
+
+<div id="user-info"></div>
+
+<div class="container">
+  <div class="row">
+    <div id="shared-map" class="col-md-12 commented-map" >
+    </div>
+  </div>
+</div>
+
+
+<h1 class='elegantshadow'>Comments</h1>
+
+<div id="comments-gallery"></div>
+
+<hr>
+<% if current_user %>
+<section>
+  <form action="#" method="POST">      
+    <textarea  type="text" name="map[comment]" id="map_comment" class="feedback-input" placeholder="Add new Comment"></textarea>
+    <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+    <input data-user="<%=current_user.id%>" id ="form-comment" type="submit" value="SUBMIT"/>
+  </form>
+</section>
+<% end %>
+<hr>
+

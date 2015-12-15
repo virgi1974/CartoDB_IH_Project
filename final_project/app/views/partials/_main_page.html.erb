@@ -1,22 +1,24 @@
-<nav class="navbar navbar-default">
+<nav class="navbar navbar-default linear-gradient">
   <div class="container-fluid">
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">
      
-      <a class="navbar-brand" href="#">Mapping</a>
+      <a class="navbar-brand a-nav-izq" href="#">Mapping</a>
     </div>
      
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-      <ul class="nav navbar-nav navbar-right">
+      <ul class="nav navbar-nav navbar-right ">
         <li class="text-center">
-          
-        <%= link_to 'Commented Maps', shared_path%>
+        <%= link_to 'Study case', studycase_path,class: 'a-nav-der'%>
+        </li>
+        <li class="text-center">
+        <%= link_to 'Commented Maps', shared_path,class: 'a-nav-der'%>
         </li>
         <% if current_user %>
-         <li><%= link_to 'Logout', destroy_user_session_path, method: 'DELETE'%></li>  
+        <li><%= link_to 'Logout', destroy_user_session_path, method: 'DELETE',class: 'a-nav-der'%></li> 
         <% else %>
-          <li><%= link_to 'Login', user_session_path %> </li>
+          <li><%= link_to 'Login', user_session_path,class: 'a-nav-der' %> </li>
         <% end %>
       </ul>
     </div><!-- /.navbar-collapse -->

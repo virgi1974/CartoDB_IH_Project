@@ -1,6 +1,116 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <!-- torque map -->
+  <style id="cartocss">
+    Map {
+  -torque-frame-count:512;
+  -torque-animation-duration:60;
+  -torque-time-attribute:"date";
+  -torque-aggregation-function:"count(cartodb_id)";
+  -torque-resolution:8;
+  -torque-data-aggregation:linear;
+  }
+
+  #ufo{
+    comp-op: lighter;
+    marker-fill-opacity: 0.9;
+    marker-line-color: #FF9900;
+    marker-line-width: 2;
+    marker-line-opacity: 0.6;
+    marker-type: ellipse;
+    marker-width: 2;
+    marker-fill: #FFCC00;
+  }
+  #ufo[frame-offset=1] {
+   marker-width:4;
+   marker-fill-opacity:0.45; 
+  }
+  #ufo[frame-offset=2] {
+   marker-width:6;
+   marker-fill-opacity:0.225; 
+  }
+  #ufo[frame-offset=3] {
+   marker-width:8;
+   marker-fill-opacity:0.15; 
+  }
+  #ufo[frame-offset=4] {
+   marker-width:10;
+   marker-fill-opacity:0.1125; 
+  }
+  #ufo[frame-offset=5] {
+   marker-width:12;
+   marker-fill-opacity:0.09; 
+  }
+  </style>
+  <!-- heat map -->
+  <style id="cartocss2">
+    Map {
+  -torque-frame-count:32;
+  -torque-animation-duration:44;
+  -torque-time-attribute:"date";
+  -torque-aggregation-function:"count(cartodb_id)";
+  -torque-resolution:8;
+  -torque-data-aggregation:linear;
+  }
+
+  #ufo{
+    image-filters: colorize-alpha(blue, cyan, lightgreen, yellow , orange, red);
+    marker-file: url(http://s3.amazonaws.com/com.cartodb.assets.static/alphamarker.png);
+    marker-fill-opacity: 0.3*[value];
+    marker-width: 7;
+  }
+  #ufo[frame-offset=1] {
+   marker-width:9;
+   marker-fill-opacity:0.15; 
+  }
+  #ufo[frame-offset=2] {
+   marker-width:11;
+   marker-fill-opacity:0.075; 
+  }
+  </style>
+  <!-- torque -->
+  <style id="cartocss3">
+    Map {
+  -torque-frame-count:1024;
+  -torque-animation-duration:60;
+  -torque-time-attribute:"date";
+  -torque-aggregation-function:"count(cartodb_id)";
+  -torque-resolution:8;
+  -torque-data-aggregation:linear;
+  }
+
+  #ufo{
+    comp-op: lighter;
+    marker-fill-opacity: 0.5;
+    marker-line-color: #F11810;
+    marker-line-width: 0.5;
+    marker-line-opacity: 0.6;
+    marker-type: ellipse;
+    marker-width: 0.5;
+    marker-fill: #F84F40;
+  }
+  #ufo[frame-offset=1] {
+   marker-width:2.5;
+   marker-fill-opacity:0.25; 
+  }
+  #ufo[frame-offset=2] {
+   marker-width:4.5;
+   marker-fill-opacity:0.125; 
+  }
+  #ufo[frame-offset=3] {
+   marker-width:6.5;
+   marker-fill-opacity:0.08333333333333333; 
+  }
+  #ufo[frame-offset=4] {
+   marker-width:8.5;
+   marker-fill-opacity:0.0625; 
+  }
+  #ufo[frame-offset=5] {
+   marker-width:10.5;
+   marker-fill-opacity:0.05; 
+  }
+  </style>
   <style type="cartocss/text" id="style_1">
     #style-1{
       marker-fill-opacity: 0.9;
@@ -32,6 +142,8 @@
   <%= stylesheet_link_tag    'application', media: 'all'%>
 
   <%= csrf_meta_tags %>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+  <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
   <meta name="viewport" content="width=device-width">
   <link rel="stylesheet" href="http://libs.cartocdn.com/cartodb.js/v3/3.15/themes/css/cartodb.css" />
   

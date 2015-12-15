@@ -4,6 +4,10 @@
 Rails.application.config.assets.version = '1.0'
 Rails.application.config.assets.precompile += %w( usermaps/usermaps.js )
 Rails.application.config.assets.precompile += %w( comments/comments.js )
+Rails.application.config.assets.precompile += %w( usermaps/stored_maps.js )
+Rails.application.config.assets.precompile += %w( shared/shared.js )
+Rails.application.config.assets.precompile += %w( usermaps/studycase.js )
+
 # Add additional assets to the asset load path
 # Rails.application.config.assets.paths << Emoji.images_path
 

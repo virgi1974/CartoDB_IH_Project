@@ -5,12 +5,10 @@ class MapsController < ApplicationController
   def index
     @user = User.find_by(id: params[:user_id])
     @maps = @user.maps
-    # render json: @maps
     render 'index'
   end
 
   def show_my_maps
-    # binding.pry
     @user = User.find_by(id: params[:user_id])
     @maps = @user.maps
     render json: @maps
@@ -22,8 +20,25 @@ class MapsController < ApplicationController
     render json: @map
   end
 
+  def show_selected_map_info
+    @map = Map.find_by(id: params[:map_id])
+    render json: {email: @map.user.email, name: @map.user.name,description: @map.description}, status: :created
+  end
+
+
   def show_shared_maps
+    @comment = Comment.new
     render 'shared'
+  end
+
+  def shared_true
+    @maps = Map.all.where('shared = ?', true)
+    @comment = Comment.new
+    render json: @maps
+  end
+
+  def comments
+    render 'comments'
   end
 
 
@@ -40,10 +55,13 @@ class MapsController < ApplicationController
       flash[:notice] = 'Map created successfully!'
       redirect_to action: 'index', controller: 'maps', user_id: @user.id
     else
-      # redirect_to action: 'new', controller: 'entries', project_id: project.id
       flash[:alert] = 'Map creation failed!'
       render 'new'
     end
+  end
+
+  def studycase
+    render 'studycase'
   end
 
   private

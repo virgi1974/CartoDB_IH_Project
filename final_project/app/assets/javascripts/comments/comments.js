@@ -1,53 +1,146 @@
-window.onload = function() {
+$(document).on('ready',function(){
 
-  //---------------------- show the comments -----------------
+  var mapId = parseInt(document.getElementsByTagName('p')[0].id);
 
-    var request = $.get('/shared/comments');
+  (function loadSelectedMap(){
 
-    request.fail(function () {
-      alert('inside fail-comments.js');
-      alert('Couldn’t get you maps from the DB')
-    });
+      var request = $.get('/maps/' + mapId);
 
-    request.done(function (response) {
-      alert('inside done-comments.js');
-      mapCollection(response);
-    });
+      request.fail(function () {
+        alert('Couldn’t get you maps from the DB');
+      });
 
-    function mapCollection(maps){
+      request.done(function (response) {
+        selectedMap(response);
+      })
 
-        for (var i = 0; i < maps.length; i++) {
-         
-          var htmlParts = [
-            '<article class="col-md-2 each-map">',
-              '<div id="container-thumbnails_' + i + '"' + 'class="small-maps"></div>',
-              '<div>',
-                '<h3>description</h3>',
-                '<p>' + maps[i].description + '</p>',
-                '<h3>comments</h3>',
-                // '<p>' + maps[i].content + '</p>',
-                '<a id ="' + maps[i].id + '" href="#" class="btn btn-success btn-block map-detail">select</a>',
-              '</div>',
-            '</article>'   
-          ];
-          $('.maps-collection').append(htmlParts.join('\n'));
+      function selectedMap(map){
 
           var my_stored_map = new Map();
-          my_stored_map.table_name = maps[i].table;
-          my_stored_map.city = maps[i].city;
-          my_stored_map.state = maps[i].state;
-          my_stored_map.date1 = maps[i].date1;
-          my_stored_map.date2 = maps[i].date2;
 
-          my_stored_map.getCartoDbUser();
-          my_stored_map.getCity();
-          my_stored_map.getState(); 
-          my_stored_map.getDatesFromDb(); 
-            
-          my_stored_map.getCartodb('container-thumbnails_' + i);
+          setDataFromDb(map,my_stored_map);
+
+          my_stored_map.getCartodb('shared-map');
+
+      };//selectedMap
+  })(); 
+//--------------------------------- user-info --------------------------------------------
+
+  (function loadSelectedMapInfo(){
+
+      var request = $.get('/maps/' + mapId + '/info');
+
+      request.fail(function () {
+        alert('Couldn’t get you maps from the DB');
+      });
+
+      request.done(function (info_user) {
+        addUserInfo(info_user);
+      })
+
+      function addUserInfo(user){
+
+          var htmlParts = [
+            '<section class="col-md-12 map-info">',
+              '<div>',
+                '<h3 class="description-header"><strong>' + user.description + '</strong></h3>',
+                '<span class="info"><strong>username</strong>&nbsp;&nbsp;&nbsp;' + user.name + '</span>&nbsp;&nbsp;&nbsp;',
+                '&nbsp;&nbsp;&nbsp;<span><strong>email</strong>&nbsp;&nbsp;&nbsp;&nbsp;' + user.email + '</span>',
+            '</section>'   
+        ];
+        $('#user-info').append(htmlParts.join('\n'));
+
+      };//addUserInfo
+  })(); 
+
+//--------------------------------- show comments --------------------------------------------
+
+  (function loadComments(){
+
+     var request = $.get('/maps/' + mapId +'/comments/');
+
+      request.fail(function () {
+        alert('Couldn’t get you comments from the DB');
+      });
+
+      request.done(function (comments) {
+        mapComments(comments);
+      }); 
+
+      function mapComments(comments){
+        for (var i = 0; i < comments.length; i++) {
+          var htmlParts= [
+              '<p class="deepshadow pull-left">'+ comments[i].content + '</p>',
+              '<p class="deepshadow pull rigth">'+ comments[i].name + '</p>'
+          ];
+
+          $('#comments-gallery').append(htmlParts.join('\n'));   
+        }
+      };//mapComments
+  })(); 
+
+
+//------------------------------- new comment for the map --------------------
+
+
+  $(document).on('click','#form-comment',function(event){
+
+        event.preventDefault();
+        var comment = $('#map_comment').val();
+
+        var $button = $(event.currentTarget);
+        var user_id = $button.attr('data-user');
+
+      console.log(comment);
+      console.log(user_id);
+      console.log(mapId);
+
+        var data = {
+          comment : comment,
+          user_id : user_id,
+          map_id : mapId
         }
 
-    };//mapCollection
+        var request = $.post('/users/' + user_id + '/maps/' + mapId + '/comments',data);
+
+        request.fail(function () {
+          alert('Couldn’t add your comment to the DB');
+        });
+
+        request.success(function (response) {
+          console.log(response);
+          newComment(response);
+        }); 
+
+    function newComment(comment){
+
+       var htmlParts= [
+              '<p class="deepshadow pull-left">'+ comment.content + '</p>',
+              '<p class="deepshadow pull rigth">'+ comment.name + '</p>'
+          ];
+
+          $('#comments-gallery').append(htmlParts.join('\n')); 
+  
+    };//newComment
+
+        
+  }); // form-comment click
 
 
-};
+
+
+
+
+
+
+});//document-ready
+
+
+
+
+ 
+
+
+
+
+
