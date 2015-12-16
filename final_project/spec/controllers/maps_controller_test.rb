@@ -104,7 +104,9 @@ class MapsControllerTest < ActionController::TestCase
         data = JSON.parse(response.body)
         expect(data.entries.count).to eq(12)
       end
-    end  
+    end
+
+    
 
     describe "GET #show_selected_map_info" do
       before(:each) do
@@ -160,6 +162,10 @@ class MapsControllerTest < ActionController::TestCase
         data = JSON.parse(response.body)
         expect(data.entries.count).to eq(2)
       end
+      # it "the returned json-maps-obj is an array" do
+      #   data = JSON.parse(response.body)
+      #   expect(data.class).to be_a_kind_of(array)
+      # end
     end
 
     describe "GET #comments" do
@@ -205,6 +211,16 @@ class MapsControllerTest < ActionController::TestCase
     #   # end
     # end
    
+
+    
+      
+
+  # def show_my_maps
+  #   @user = User.find_by(id: params[:user_id])
+  #   @maps = @user.maps
+  #   render json: @maps
+  # end
+
     
   end #RSpec
 

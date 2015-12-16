@@ -2,8 +2,7 @@
   <div class="container-fluid">
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">
-     
-      <a class="navbar-brand a-nav-izq" href="#">Mapping</a>
+     <%= link_to 'american UFO Sigthings','/',class: 'navbar-brand a-nav-izq'%>
     </div>
      
     <!-- Collect the nav links, forms, and other content for toggling -->
@@ -13,9 +12,11 @@
         <%= link_to 'Study case', studycase_path,class: 'a-nav-der'%>
         </li>
         <li class="text-center">
-        <%= link_to 'Commented Maps', shared_path,class: 'a-nav-der'%>
+        <%= link_to 'Shared Maps', shared_path,class: 'a-nav-der'%>
         </li>
         <% if current_user %>
+        <li><%= link_to 'My maps', user_maps_path(current_user),class: 'a-nav-der'%></li> 
+
         <li><%= link_to 'Logout', destroy_user_session_path, method: 'DELETE',class: 'a-nav-der'%></li> 
         <% else %>
           <li><%= link_to 'Login', user_session_path,class: 'a-nav-der' %> </li>
@@ -24,5 +25,4 @@
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>
-
 

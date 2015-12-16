@@ -1,3 +1,9 @@
+.new-map-form{
+  border: solid;
+  padding: 30px;
+  background-color: rgba(241,231,103,1);
+}
+
 /* my maps */
 .my-maps{
   height: 60%;

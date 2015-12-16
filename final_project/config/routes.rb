@@ -1,28 +1,20 @@
 Rails.application.routes.draw do
 
   devise_for :users
+
   get '/' => 'users#welcome'
 
   get '/users/:user_id/mymaps' => 'maps#show_my_maps'
-  get '/maps/:map_id' => 'maps#show_selected_map'
-  get '/maps/:map_id/info' => 'maps#show_selected_map_info'
   get '/shared' => 'maps#show_shared_maps'
   get '/shared/info' => 'maps#shared_true'
+  get '/maps/:map_id' => 'maps#show_selected_map'
+  get '/maps/:map_id/info' => 'maps#show_selected_map_info'
   get '/shared/:map_id/comments' => 'maps#comments'
+  get '/studycase' => 'maps#studycase'#*********
 
-
-
-  get '/studycase' => 'maps#studycase'
-
+  
   get '/comments/:map_id' => 'comments#map_comments'
   get '/maps/:map_id/comments' => 'comments#map_comments'
- 
-
-
-  # get 'comments/:mapId/new' => 'comments#create_map_comment'
-
-
-
   
   get '/missing' => 'users#missing'
 

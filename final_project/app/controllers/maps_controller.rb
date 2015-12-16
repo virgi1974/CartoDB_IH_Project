@@ -14,7 +14,6 @@ class MapsController < ApplicationController
     render json: @maps
   end
   
-
   def show_selected_map
     @map = Map.find_by(id: params[:map_id])
     render json: @map
@@ -22,7 +21,7 @@ class MapsController < ApplicationController
 
   def show_selected_map_info
     @map = Map.find_by(id: params[:map_id])
-    render json: {email: @map.user.email, name: @map.user.name,description: @map.description}, status: :created
+    render json: @map.to_custom_hash, status: :ok
   end
 
 
@@ -41,7 +40,6 @@ class MapsController < ApplicationController
     render 'comments'
   end
 
-
   def new
     @user = User.find_by(id: params[:user_id])
     @map = @user.maps.new
@@ -51,7 +49,7 @@ class MapsController < ApplicationController
     @user = User.find_by(id: params[:user_id])
     @map = @user.maps.new(entry_params)
 
-     if @map.save
+    if @map.save
       flash[:notice] = 'Map created successfully!'
       redirect_to action: 'index', controller: 'maps', user_id: @user.id
     else
@@ -66,7 +64,7 @@ class MapsController < ApplicationController
 
   private
     def entry_params
-      params.require(:map).permit(:table, :city, :state, :description, :date1, :date2, :cartodb_username)
+      params.require(:map).permit(:table, :city, :state, :description, :date1, :date2, :cartodb_username, :shared)
     end
 
 end
