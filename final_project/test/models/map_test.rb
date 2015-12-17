@@ -31,7 +31,6 @@ class MapTest < ActiveSupport::TestCase
         @user = User.create(email: "virgi@yahoo", name: "toni")
         @map = Map.create(table: "ufo", description: "great")
         @user.maps << @map
-        binding.pry
         expect(@map.to_custom_hash).to eq({email: 'virgi@yahoo', name: 'toni',description: 'great'}) 
       end
       

@@ -110,6 +110,7 @@ class MapsControllerTest < ActionController::TestCase
       before(:each) do
         get :show_selected_map_info, "MapsController", map_id: @map_1.id
         expect(response).to be_success
+        data = JSON.parse(response.body)
       end
       it "responds successfully with an HTTP 200 status code" do
         expect(response).to have_http_status(200)

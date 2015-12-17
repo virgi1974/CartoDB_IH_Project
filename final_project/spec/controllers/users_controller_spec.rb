@@ -5,17 +5,15 @@ require 'pry'
 
 class UsersControllerTest < ActionController::TestCase
 
-  RSpec.describe UsersController, type: :controller do  
+   RSpec.describe UsersController, type: :controller do  
 
     describe "GET #welcome" do
       before(:each) do
         get :welcome
       end
-
-      it "" do
+      it "responds successfully" do
         expect(response).to be_success
       end
-
       it "responds successfully with an HTTP 200 status code" do
         expect(response).to have_http_status(200)
       end
@@ -26,4 +24,3 @@ class UsersControllerTest < ActionController::TestCase
 
   end #RSpec
 end #UsersControllerTest
-

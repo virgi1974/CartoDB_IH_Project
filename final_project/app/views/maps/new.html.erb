@@ -13,55 +13,51 @@
 <div class="container-fluid">
 <header class="row">
   <section class="col-sm-5 col-md-offset-3 text-center">
-    <legend>Creating a map</legend>
-  <%= form_for [@user, @map], :html => {:class => "feedback-input"} do |f| %>
+<h1 class='elegantshadow'>Create a new Map</h1>
+  <%= form_for [@user, @map], :html => {:class => ""} do |f| %>
 
     <div class="form-group new-map-form">
-      <%= f.label :cartodb_username %>
-      <%= f.text_field :cartodb_username,class: "feedback-input" %>
-      <%= f.label :table %>
-      <%= f.text_field :table,class: "feedback-input" %>
-      <%= f.label :city %>
-      <%= f.text_field :city,class: "feedback-input" %>
+      <%= f.text_field :cartodb_username,class: "feedback-input",placeholder: "username"  %>
+      <%= f.text_field :table,class: "feedback-input",placeholder: "table name"  %>
+      <%= f.text_field :city,class: "feedback-input",placeholder: "city"  %>
     
-      <%= f.label :state %>
-      <%= f.text_field :state,class: "feedback-input" %>
+      <%= f.text_field :state,class: "feedback-input",placeholder: "state" %>
       <br>
 
-      <legend>Add a description</legend>
-        <%= f.label :description %>
-        <%= f.text_area :description,class: "feedback-input" %>
+        <%= f.text_area :description,class: "feedback-input",placeholder: "description"  %>
         <br>
 
       <legend>Search by date</legend>
         <%= f.label :date1 %>
-        <%= f.date_field :date1,class: "feedback-input"  %>
+        <%= f.date_field :date1,class: "feedback-input" %>
 
         <%= f.label :date2 %>
-        <%= f.date_field :date2,class: "feedback-input" %>  
+        <%= f.date_field :date2,class: "feedback-input"%>  
         <br>
         <br>
 
         <%= f.label :shared %>
         <%= f.check_box :shared,class: "form-control" %>
+
       </div>
       
+      
       <%= f.submit 'CREATE MAP',type: "submit"  %>
-   
+
   <% end %>
   </section>
 
   </header>
 </div>
-<br>
 
 <div class="container" id="up">
   <div class="row">
-    <div class="col-md-6 text-center">
+    <div class="col-sm-5 col-md-offset-3 text-center">
       <input type="button" class="btn btn-success btn-block" id="show-map" value="PREVIEW">
     </div>
   </div>
 </div>
+<br>
 
 <div class="container">
   <div class="row">
@@ -69,11 +65,3 @@
     </div>
   </div>
 </div>
-
-<!-- ---------------------- -->
-<!-- <form action="#" method="POST">      
-    <textarea  type="text" name="map[comment]" id="map_comment" class="feedback-input" placeholder="Add new Comment"></textarea>
-    <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
-    <input data-user="<%=current_user.id%>" id ="form-comment" type="submit" value="SUBMIT"/>
-  </form> -->
-  

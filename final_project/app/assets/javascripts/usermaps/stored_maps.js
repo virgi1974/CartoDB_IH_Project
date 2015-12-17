@@ -79,11 +79,4 @@ window.onload = function() {
 
 });
 
-
-
-
-
-
-
-
 }; // windows-onload

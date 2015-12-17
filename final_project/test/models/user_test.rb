@@ -12,8 +12,13 @@ class UserTest < ActiveSupport::TestCase
 
     describe "validation of the user-name" do
       it "fails if description is not filled" do
-        expect(User.new(name: "")).to_not be_valid
+        expect(User.new()).to_not be_valid
       end
+
+      it "fails if description is  filled" do
+        expect(User.new(name: "tfyguhij")).to be_valid
+      end
+      #caso malo!!!!!!
     end
 
   describe "user relations" do

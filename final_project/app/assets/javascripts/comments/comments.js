@@ -79,9 +79,7 @@ $(document).on('ready',function(){
       };//mapComments
   })(); 
 
-
 //------------------------------- new comment for the map --------------------
-
 
   $(document).on('click','#form-comment',function(event){
 
@@ -91,9 +89,9 @@ $(document).on('ready',function(){
         var $button = $(event.currentTarget);
         var user_id = $button.attr('data-user');
 
-      console.log(comment);
-      console.log(user_id);
-      console.log(mapId);
+      // console.log(comment);
+      // console.log(user_id);
+      // console.log(mapId);
 
         var data = {
           comment : comment,
@@ -122,16 +120,8 @@ $(document).on('ready',function(){
           $('#comments-gallery').append(htmlParts.join('\n')); 
   
     };//newComment
-
         
   }); // form-comment click
-
-
-
-
-
-
-
 
 });//document-ready
 

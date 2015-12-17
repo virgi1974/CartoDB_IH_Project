@@ -10,7 +10,6 @@
   </div>
 <% end %>
 
-<%= link_to 'New Map', new_user_map_path(current_user), class: "btn btn-primary" %> 
 <p id="<%= @user.id %>" class="btn btn-info show-stored-maps" style="display:none;" hidden></p>
 
 <div class="container">
@@ -19,7 +18,14 @@
   </div>
 </div>
 
-<hr>
+<div class="container">
+  <div class="row">
+    <div class="col-md-8 col-md-offset-2 ">
+      <%= link_to 'Create a New Map', new_user_map_path(current_user), class: "btn btn-primary btn-block" %> 
+      <br>
+    </div>
+  </div>
+</div>
 
 <div class="container">
   <div class="row">
