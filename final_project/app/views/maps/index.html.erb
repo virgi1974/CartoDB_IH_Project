@@ -1,14 +1,6 @@
 <%= javascript_include_tag 'usermaps/stored_maps.js' %>
 
-<% if current_user %>
- <div class="container-fluid">
-    <header class="row">
-      <section class="col-sm-12 well text-center">
-        <p><strong>Name:</strong>  <%= current_user.name %> <strong>Email:</strong> <%= current_user.email %></p>
-      </section>
-    </header>
-  </div>
-<% end %>
+
 
 <p id="<%= @user.id %>" class="btn btn-info show-stored-maps" style="display:none;" hidden></p>
 
@@ -33,4 +25,14 @@
     </div>
   </div>
 </div>
+<br>
+<% if current_user %>
+ <div class="container-fluid">
+    <header class="row">
+      <section class="col-sm-12 well text-center">
+        <p><strong>Name:</strong>  <%= current_user.name %> <strong>Email:</strong> <%= current_user.email %></p>
+      </section>
+    </header>
+  </div>
+<% end %>
 

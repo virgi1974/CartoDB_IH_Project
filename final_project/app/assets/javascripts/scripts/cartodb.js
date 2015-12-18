@@ -125,8 +125,26 @@ Map.prototype.getCartodb = function(id_container){
     cartodb.createLayer(map_object,layerSource)
       .addTo(map_object)
       .done(function(layer) {
-        // console.log(layer);
+        
         sublayer = layer.getSubLayer(0);
+        sublayer.setInteraction(true);
+        cartodb.vis.Vis.addInfowindow(map_object, layer.getSubLayer(0), ['cartodb_id','state','city','description','duration','type'])
+
+
+        sublayer.setInteractivity('cartodb_id,date,city,state,description,duration,type');
+
+        sublayer.on('featureClick', function(cartodb_id,e, latlng, pos, data,city,date) {
+          cartodb.log.log(pos.cartodb_id);
+          console.log(pos.cartodb_id);
+          console.log("cartodb id: " + pos.cartodb_id);
+          console.log("city " + pos.city);
+          console.log("state " + pos.state);
+          console.log("date " + pos.date);
+          console.log("description " + pos.description);
+          console.log("duration " + pos.duration);
+          console.log("type " + pos.type);
+        });
+
       })
       .error(function(err) {
         console.log("error: " + err);

@@ -45,8 +45,6 @@ window.onload = function() {
       }
     };//myMaps
 
-
-
 //show selected map below
 
   $(document).on('click','.map-detail',function(event){

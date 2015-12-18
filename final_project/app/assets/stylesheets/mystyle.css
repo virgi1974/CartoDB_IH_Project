@@ -26,7 +26,6 @@ label{
   padding: 30px;
 }
 
-
 /* my maps */
 .my-maps{
   height: 60%;
@@ -36,12 +35,16 @@ label{
   height: 300px;
   padding: 5px;
   margin: 20px;
+  border: 1px solid;
+  border-radius: 12px;
+  border-color: #ABA6A6;
+  padding-bottom: 29px;
+  box-shadow: 6px 6px 5px 0px rgba(0,0,0,0.28);
 }
 /**/
 .studycase{
   height:600px;
   width:100%;
-  border:solid;
 }
 h1.elegantshadow2 {
   font-size: 4em;
