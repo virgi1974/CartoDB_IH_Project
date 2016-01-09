@@ -20,15 +20,17 @@ with all the info related to UFO sigthings in USA since info recorded.```
 3.  ```Construction of the web app, by using the CartoDb JS Api`s to query the tables 
 so I was able to customize my data visualization through Sql.```
 
+###Using the app
+
 **Study case**
-In this view user can see different renderings of the phenomena using torque visualizations.
+-```In this view user can see different renderings of the phenomena using torque visualizations.```
 **Shared maps**
-In this view user can see other user´s maps, but only the ones the author shares.
-You can share your maps by first logging.
+-```In this view user can see other user´s maps, but only the ones the author shares.
+You can share your maps by first logging.```
 **Creating a new map**
-If you are a logged user you can access to "my Maps" view, in which you´ll be able to do your own searches.
+-```If you are a logged user you can access to "my Maps" view, in which you´ll be able to do your own searches.
 You´ll go through a form with different inputs. 
 At the moment all the info is in a table called "ufo"
-At the moment all the info is in a table called "ufo"
+At the moment all the info is in a table called "ufo"```
 
 [http://americanufo.herokuapp.com/shared]
