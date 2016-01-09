@@ -52,4 +52,14 @@ You´ll go through a form with different inputs.```
 ```You can now get a preview of your map or store it.```
 
 
+###Behind the scene Technology / Frameworks
+```The platform`s backend is done with Ruby on Rails```
 
+```The platform`s frontend is done with Bootstrap```
+
+```The management of the authentication is done with Device Ruby Gem```
+
+```The queries to the CartoDB datasets are done by using their Javascript Api in 2 ways:```
+
+  - ```getting the parameters for the queries from forms.```
+  - ```getting the parameters for the queries from the user maps stored parameters in the app dataBase and then reconstructed the sql in the front. ```
