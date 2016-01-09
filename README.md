@@ -23,6 +23,8 @@ with all the info related to UFO sigthings in USA since info recorded.```
 3.  ```Construction of the web app, by using the CartoDb JS Api`s to query the tables 
 so I was able to customize my data visualization through Sql.```
 
+4.  ```Testing the app (Models/Controllers/Routes)```
+
 ###Using the app
 
 **Study case**
@@ -39,27 +41,24 @@ You can share your maps by first logging.```
 ```If you are a logged user you can get access to "my Maps" tab, in which you´ll be able to do your own searches.
 You´ll go through a form with different inputs.```
 
-  - *username*  ```If you are a CartoDB user you could get data from you own datasets through your username.
+  - **username**  ```If you are a CartoDB user you could get data from you own datasets through your username.
   By default if this field is empty the form will use my own user CartoDB username to access my ufo dataset through the their javascript Api```
-  - *table_name*  ```At the moment all the info is in a table called "ufo", to be typed in the field.```
-  - *city*  ```You might find matches for your search by a city from USA filling the city name in this field.```
-  - *state*  ```you might find matches for your search by state from USA filling the field with the first 2 capitalized letters of the state.```
-  - *description*  ```A description for your map is requested before saving it.```
-  - *dates*  ```If you want to see the matches for your search for a specific date you fill one of the 2 datafields.
+  - **table_name**  ```At the moment all the info is in a table called "ufo", to be typed in the field.```
+  - **city**  ```You might find matches for your search by a city from USA filling the city name in this field.```
+  - **state**  ```you might find matches for your search by state from USA filling the field with the first 2 capitalized letters of the state.```
+  - **description**  ```A description for your map is requested before saving it.```
+  - **dates**  ```If you want to see the matches for your search for a specific date you fill one of the 2 datafields.
   If you want to find results between 2 specific dates, you must use both given form datefields.```
-  - *shared*  ``You as a user of the platform are given the option of sharing maps, so anybody wether user of the platform or not could see you shared maps. By default the private feature is also given.```
+  - **shared**  ``You as a user of the platform are given the option of sharing maps, so anybody wether user of the platform or not could see you shared maps. By default the private feature is also given.```
 
 ```You can now get a preview of your map or store it.```
 
 
 ###Behind the scene Technology / Frameworks
-```The platform`s backend is done with Ruby on Rails```
+**Platform`s backend** is done with Ruby on Rails
 
-```The platform`s frontend is done with Bootstrap```
+**Platform`s frontend** is done with Bootstrap
 
-```The management of the authentication is done with Device Ruby Gem```
+**Ruby Gems** Devise Mechanize Rspec
 
-```The queries to the CartoDB datasets are done by using their Javascript Api in 2 ways:```
-
-  - ```getting the parameters for the queries from forms.```
-  - ```getting the parameters for the queries from the user maps stored parameters in the app dataBase and then reconstructed the sql in the front. ```
+**Api´s** CartoDB JavaScript Api
