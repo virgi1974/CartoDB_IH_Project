@@ -1,6 +1,5 @@
 require 'pry'
 class UsersController < ApplicationController
-  # before_action :authenticate_user!
 
   def welcome
     render 'welcome'

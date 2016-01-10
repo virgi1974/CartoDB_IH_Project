@@ -16,34 +16,34 @@ window.onload = function() {
 
 //---------------------- show the selected map below -----------------
 
-$(document).on('click','.map-detail',function(event){
+// $(document).on('click','.map-detail',function(event){
 
-    $('#selected-map').empty();
+//     $('#selected-map').empty();
 
-    var currentDOMElement = $(event.currentTarget);
-    var mapId = $(event.currentTarget).attr("id");
-    // var id = $(event.currentTarget).attr("id")
+//     var currentDOMElement = $(event.currentTarget);
+//     var mapId = $(event.currentTarget).attr("id");
+//     // var id = $(event.currentTarget).attr("id")
 
-    var request = $.get('/maps/' + mapId);
+//     var request = $.get('/maps/' + mapId);
 
-    request.fail(function () {
-      alert('Couldn’t get you maps from the DB');
-    });
+//     request.fail(function () {
+//       alert('Couldn’t get you maps from the DB');
+//     });
 
-    request.done(function (response) {
-      selectedMap(response);
-    })
+//     request.done(function (response) {
+//       selectedMap(response);
+//     })
 
-    function selectedMap(map){
+//     function selectedMap(map){
 
-        var my_stored_map = new Map();
+//         var my_stored_map = new Map();
 
-        setDataFromDb(map,my_stored_map);
+//         setDataFromDb(map,my_stored_map);
 
-        my_stored_map.getCartodb('selected-map');
+//         my_stored_map.getCartodb('selected-map');
 
-    };//selectedMap
+//     };//selectedMap
 
-});
+// });
 
 }; // doc-ready

@@ -6,15 +6,6 @@ class UserTest < ActiveSupport::TestCase
 
   RSpec.describe User, type: :model do   
 
-    # before :each do
-    #   @user = User.new(
-    #     :name => 'virgi',
-    #     :email => 'mail_admin@test.com',
-    #     :password => 'password_admin',
-    #     :password_confirmation => 'password_admin')
-    #   @user.save    
-    # end 
-
     describe "validation of the user-name" do
       describe "failed user creation" do
         it "fails if name is not filled" do

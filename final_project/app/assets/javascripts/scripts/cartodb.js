@@ -121,19 +121,33 @@ Map.prototype.getCartodb = function(id_container){
     attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
   }).addTo(map_object);
 
+        function geometryHover(layer) {
+         function featureOver(e, pos, latlng, data) {
+           var cartocss = $("#style_2").text()
+           layer.setCartoCSS(cartocss);
+         }
+         function featureOut() {
+          var cartocss = $("#style_1").text()
+           layer.setCartoCSS(cartocss);           }
+         layer.on('featureOver', featureOver);
+         layer.on('featureOut', featureOut);
+         layer.setInteraction(true);
+        }
+
     // Add data layer to your map
     cartodb.createLayer(map_object,layerSource)
       .addTo(map_object)
       .done(function(layer) {
-        
         sublayer = layer.getSubLayer(0);
         sublayer.setInteraction(true);
         cartodb.vis.Vis.addInfowindow(map_object, layer.getSubLayer(0), ['cartodb_id','state','city','description','duration','type'])
-
+        
+        sublayer.infowindow.set('template', $('#infowindow_template').html());
 
         sublayer.setInteractivity('cartodb_id,date,city,state,description,duration,type');
 
         sublayer.on('featureClick', function(cartodb_id,e, latlng, pos, data,city,date) {
+          // geometryHover(layer.getSubLayer(0));
           cartodb.log.log(pos.cartodb_id);
           console.log(pos.cartodb_id);
           console.log("cartodb id: " + pos.cartodb_id);

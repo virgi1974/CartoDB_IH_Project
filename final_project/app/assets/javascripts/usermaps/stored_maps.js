@@ -45,7 +45,7 @@ window.onload = function() {
       }
     };//myMaps
 
-//show selected map below
+//show selected map below - preview
 
   $(document).on('click','.map-detail',function(event){
 
@@ -53,12 +53,11 @@ window.onload = function() {
 
     var currentDOMElement = $(event.currentTarget);
     var mapId = $(event.currentTarget).attr("id");
-    // var id = $(event.currentTarget).attr("id")
 
     var request = $.get('/maps/' + mapId);
 
     request.fail(function () {
-      alert('Couldn’t get you maps from the DB');
+      alert('Couldn’t get your map from the DB');
     });
 
     request.done(function (response) {

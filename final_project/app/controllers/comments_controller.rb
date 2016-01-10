@@ -1,10 +1,6 @@
 require 'pry'
 class CommentsController < ApplicationController
 
-  def index
-    
-  end
-
   def map_comments
     @map = Map.find(params[:map_id])
     comments = @map.comments

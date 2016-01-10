@@ -6,9 +6,6 @@ RSpec.describe MapsController, type: :routing do
 
  describe "routing" do
 
-  # it "routes to #show_my_maps" do
-  #   expect(:get => "/users/2/mymaps").to route_to("maps#index", :user_id => "2")
-  # end
   it "routes to #index" do
     expect(:get => "/users/2/mymaps").to route_to("maps#show_my_maps", :user_id => "2")
   end
